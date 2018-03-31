@@ -8,7 +8,7 @@ function [J, grad] = costFunction(theta, X, y)
 global ind_fair;  % if 1 then cost function gets a penalty of individual fairness (refere to Berk et al.)
 global group_fair; % if 1 then cost function gets a penalty of group fairness (refere to Berk et al.
 global lvl_n; % number of levels of the protected feature
-global lvl_loc; % location of the protected feature in the columns of the data +1
+global lvl_loc; % location of the protected feature in the columns of the data
 global s_lvl; % number of observations in each level of the protected feature
 global M; % Product of the s_lvl which gives the number of paris that are being compared in the penalty function
 global lambda; % A hyper-parameter corresponding to the penalty function coefficient 
