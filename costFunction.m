@@ -24,6 +24,7 @@ if ind_fair == 0 && group_fair == 0
 end
 
 %% 
+% Individual Fairness penalty
 if ind_fair == 1
     p_x = 0;
     for i=1:lvl_n
@@ -39,6 +40,8 @@ if ind_fair == 1
     J = -(1 / m) * sum( (y .* log(h)) + ((1 - y) .* log(1 - h)) ) + 1/M *lambda* p_x;
 end
 
+%%
+% Group fairness penalty
 if group_fair == 1
     p_x = 0;
     for i=1:lvl_n
