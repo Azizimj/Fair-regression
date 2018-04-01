@@ -1,4 +1,4 @@
-function   = Main(ind_fair, group_fair,lambda, lvl_n, lvl_loc)
+function []  = Main(ind_fair, group_fair,lambda, lvl_n, lvl_loc)
 % ind_fair;  % if 1 then cost function gets a penalty of individual fairness (refere to Berk et al.)
 % group_fair; % if 1 then cost function gets a penalty of group fairness (refere to Berk et al.
 % lvl_n; % number of levels of the protected feature
