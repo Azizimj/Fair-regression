@@ -1,17 +1,13 @@
-function [J, grad] = costFunction(theta, X, y)
+function [J, grad] = costFunction(theta, X, y, ind_fair, group_fair,lambda, lvl_n, lvl_loc)
 %   COSTFUNCTION Compute cost and gradient for logistic regression
 %   J = COSTFUNCTION(theta, X, y) computes the cost of using theta as the
 %   parameter for logistic regression and the gradient of the cost
 %   w.r.t. to the parameters.
 
-%% setting up some parameters related to the fairness
-global ind_fair;  % if 1 then cost function gets a penalty of individual fairness (refere to Berk et al.)
-global group_fair; % if 1 then cost function gets a penalty of group fairness (refere to Berk et al.
-global lvl_n; % number of levels of the protected feature
-global lvl_loc; % location of the protected feature in the columns of the data
+%% setting up some global parameters related to the fairness
 global s_lvl; % number of observations in each level of the protected feature
 global M; % Product of the s_lvl which gives the number of paris that are being compared in the penalty function
-global lambda; % A hyper-parameter corresponding to the penalty function coefficient 
+
 
 % Initialize some useful values
 m = length(y); % number of training examples
