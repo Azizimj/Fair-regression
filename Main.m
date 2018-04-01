@@ -1,22 +1,14 @@
-
-%% Initialization
-clear; close all; clc
+function   = Main(ind_fair, group_fair,lambda, lvl_n, lvl_loc)
+% ind_fair;  % if 1 then cost function gets a penalty of individual fairness (refere to Berk et al.)
+% group_fair; % if 1 then cost function gets a penalty of group fairness (refere to Berk et al.
+% lvl_n; % number of levels of the protected feature
+% lvl_loc; % location of the protected feature in the columns of the data
+% lambda; % A hyper-parameter corresponding to the penalty function coefficient
 
 %%
-%setting up some parameters related to the fairness
-global ind_fair;  % if 1 then cost function gets a penalty of individual fairness (refere to Berk et al.)
-global group_fair; % if 1 then cost function gets a penalty of group fairness (refere to Berk et al.
-global lvl_n; % number of levels of the protected feature
-global lvl_loc; % location of the protected feature in the columns of the data
+%setting up some global parameters related to the fairness
 global s_lvl; % number of observations in each level of the protected feature
 global M; % Product of the s_lvl which gives the number of paris that are being compared in the penalty function
-global lambda; % A hyper-parameter corresponding to the penalty function coefficient
-
-%%
-% fairness on/off options
-ind_fair = 1;
-group_fair = 0;
-lambda = 10^2;
 
 %% Load Data
 %  The first columns contains the features
@@ -42,8 +34,6 @@ X = [ones(m, 1) X]; % Add intercept term to x and X_test
 
 %%
 % determining the protected feature specifications
-lvl_n = 4;  
-lvl_loc = 8; 
 lvl_loc = lvl_loc +1;  %1 added to the columns
 s_lvl = zeros(lvl_n,1);
 M = 1;
@@ -64,7 +54,7 @@ end
 initial_theta = zeros(n + 1, 1);
 
 % Compute and display initial cost and gradient
-[cost, grad] = costFunction(initial_theta, X, y);
+[cost, grad] = costFunction(initial_theta, X, y, ind_fair, group_fair,lambda, lvl_n, lvl_loc);
 
 fprintf('Cost at initial theta (zeros): %f\n', cost);
 fprintf('Gradient at initial theta (zeros): \n');
@@ -80,7 +70,7 @@ options = optimset('GradObj', 'on', 'MaxIter', 400);
 %  Run fminunc to obtain the optimal theta
 %  This function will return theta and the cost 
 [theta, cost] = ...
-	fminunc(@(t)(costFunction(t, X, y)), initial_theta, options);
+	fminunc(@(t)(costFunction(t, X, y,ind_fair, group_fair,lambda, lvl_n, lvl_loc)), initial_theta, options);
 
 % Print theta to screen
 fprintf('Cost at theta found by fminunc: %f\n', cost);
@@ -109,5 +99,5 @@ for i=1:lvl_n
     fprintf('Average response for lvl %d in the test set is: %f\n', i ,  mean(p_tes(X_tes(:,lvl_loc)==i,:)));
 end
     
-
+end
 
