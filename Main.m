@@ -4,7 +4,9 @@ function []  = Main(ind_fair, group_fair,lambda, lvl_n, lvl_loc)
 % lvl_n; % number of levels of the protected feature
 % lvl_loc; % location of the protected feature in the columns of the data
 % lambda; % A hyper-parameter corresponding to the penalty function coefficient
-
+if (ind_fair + group_fair) == 2
+	return % it is not true to have both of them together (can be a mistake in calling the Main by user)
+end
 %%
 %setting up some global parameters related to the fairness
 global s_lvl; % number of observations in each level of the protected feature
